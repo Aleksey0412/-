@@ -67,16 +67,33 @@ namespace Проект1
         {
             if (dgEvents.SelectedItem is Event ev)
             {
-                MessageBox.Show(
-                    $"Мероприятие: {ev.EventName}\n" +
-                    $"Направление: {ev.Direction}\n" +
-                    $"Город: {ev.City}\n" +
-                    $"Дата: {ev.StartDateTime:dd.MM.yyyy}\n" +
-                    $"Время: {ev.StartDateTime:HH:mm} - {ev.EndDateTime:HH:mm}\n" +
-                    $"Описание: {ev.Description}",
-                    "Информация о мероприятии",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                // Спрашиваем, что открыть
+                var result = MessageBox.Show(
+                    "Открыть:\nOK - Подробная информация\nCancel - Kanban доска",
+                    "Выбор",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.OK)
+                {
+                    // Подробная информация
+                    MessageBox.Show(
+                        $"Мероприятие: {ev.EventName}\n" +
+                        $"Направление: {ev.Direction}\n" +
+                        $"Город: {ev.City}\n" +
+                        $"Дата: {ev.StartDateTime:dd.MM.yyyy}\n" +
+                        $"Время: {ev.StartDateTime:HH:mm} - {ev.EndDateTime:HH:mm}\n" +
+                        $"Описание: {ev.Description}",
+                        "Информация о мероприятии",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                else
+                {
+                    // Kanban доска
+                    var win = new KanbanWindow(ev.EventId);
+                    win.ShowDialog();
+                }
             }
             else
             {

@@ -52,6 +52,8 @@ namespace Проект1.Forms
                 }
             }
 
+
+
             MessageBox.Show("Неверный Id Number или пароль", "Ошибка",
                 MessageBoxButton.OK, MessageBoxImage.Error);
             txtPassword.Password = "";
